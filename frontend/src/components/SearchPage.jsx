@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Search, Github, Zap, BarChart2, Code2, Activity } from 'lucide-react'
+import { API_URL } from '../config.js'
 
 const EXAMPLES = ['torvalds', 'gaearon', 'sindresorhus', 'yyx990803', 'tj']
 
@@ -17,7 +18,7 @@ export default function SearchPage({ onSearch }) {
     setError('')
 
     try {
-      const res = await fetch(`/api/user/${user}`)
+      const res = await fetch(`${API_URL}/api/user/${user}`)
       if (!res.ok) {
         const data = await res.json()
         throw new Error(data.detail || 'User not found')
@@ -50,7 +51,8 @@ export default function SearchPage({ onSearch }) {
           <span style={styles.accent}>Dashboard</span>
         </h1>
         <p style={styles.subtitle}>
-        Enter any GitHub user and generate a complete visual analysis with real statistics, trends, and activity.
+          Enter any GitHub username and generate a complete visual analysis
+          with real stats, trends and activity.
         </p>
 
         <form onSubmit={handleSubmit} style={styles.form}>
@@ -113,10 +115,10 @@ export default function SearchPage({ onSearch }) {
 }
 
 const FEATURES = [
-  { Icon: Code2,     color: '#00d084', title: 'Languages',  desc: 'Technology distribution in your repositories'},
-  { Icon: BarChart2, color: '#58a6ff', title: 'Activity',  desc: 'Commitments and events of the last 12 months'},
-  { Icon: Zap,       color: '#bc8cff', title: 'Top Repos',  desc: 'Most popular projects by stars'},
-  { Icon: Activity,  color: '#f78166', title: 'Tendencies', desc: 'Types of events and contributions'},
+  { Icon: Code2,     color: '#00d084', title: 'Languages',  desc: 'Technology distribution across your repos' },
+  { Icon: BarChart2, color: '#58a6ff', title: 'Activity',   desc: 'Commits and events from the last 12 months' },
+  { Icon: Zap,       color: '#bc8cff', title: 'Top Repos',  desc: 'Most popular projects by stars' },
+  { Icon: Activity,  color: '#f78166', title: 'Trends',     desc: 'Event types and contributions' },
 ]
 
 const styles = {
