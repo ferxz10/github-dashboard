@@ -27,4 +27,4 @@ npm install
 npm run dev
 ```
 
-Abrí http://localhost:5173
+Open http://localhost:5173
