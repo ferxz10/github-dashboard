@@ -2,6 +2,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import httpx
+import os
 from collections import defaultdict
 from datetime import datetime, timedelta
 import asyncio
@@ -17,10 +18,15 @@ app.add_middleware(
 )
 
 GITHUB_API = "https://api.github.com"
+GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
+
 HEADERS = {
     "Accept": "application/vnd.github+json",
     "X-GitHub-Api-Version": "2022-11-28"
 }
+
+if GITHUB_TOKEN:
+    HEADERS["Authorization"] = f"Bearer {GITHUB_TOKEN}"
 
 
 async def github_get(client: httpx.AsyncClient, url: str) -> dict | list:
